@@ -8,7 +8,7 @@ private:
     bool EcoMode;
 
 public:
-    ElectricCar(const string& brand, const string& model, int year, int numDoors, int batteryCapacity, string engineType, bool EcoMode)
+    ElectricCar(const string& brand, const string& model, int year, int numDoors, int batteryCapacity, string engineType, bool ecoMode)
         : Car(brand, model, year, numDoors, engineType), batteryCapacity(batteryCapacity) {}
 
     void charge();
