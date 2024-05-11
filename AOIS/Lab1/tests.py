@@ -60,8 +60,8 @@ class TestBinaryConversions(unittest.TestCase):
     def test_add_in_IEEE(self):
         number1 = 10.5
         number2 = 4.65
-        result = ieee754_addition(decimal_to_ieee754(number1), decimal_to_ieee754(number2))
-        self.assertEqual(result, '01000001111100100110011001100110')
+        result = add_ieee754(decimal_to_ieee754(number1), decimal_to_ieee754(number2))
+        self.assertEqual(result, '01000001011100100110011001100110')
 
 
 if __name__ == '__main__':

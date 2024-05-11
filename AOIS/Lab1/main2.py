@@ -16,7 +16,7 @@ while True:
     print("----"*8)
     print_menu()
     try:
-        choice = input("Выберите опцию (1-6): ")
+        choice = input("Выберите опцию (1-8): ")
     except:
         print("Ошибка ввода :( ")
         break
@@ -49,7 +49,8 @@ while True:
     elif choice == "5":
         a = float(input('Введите первое число: '))
         b = float(input('Введите второе число: '))
-        print(f'{a} + {b}: {ieee754_addition(decimal_to_ieee754(a),decimal_to_ieee754(b))}')
+        # print(f'{a} + {b}: {ieee754_addition(decimal_to_ieee754(a),decimal_to_ieee754(b))}')
+        print(f'{a} + {b}: {add_ieee754(decimal_to_ieee754(a), decimal_to_ieee754(b))}')
         print(f'Ответ : {a + b}')
 
     elif choice == "6":

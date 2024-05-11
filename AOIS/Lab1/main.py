@@ -151,11 +151,11 @@ def multiply(a, b):
 def divide_binary(dividend, divisor):
     dividend = str(twos_complement(dividend))
     divisor = str(twos_complement(divisor))
-    # Убедимся, что делитель не нулевой
+
     if int(divisor, 2) == 0:
         raise ValueError("Деление на ноль не определено.")
 
-    # Обрезаем ведущие нули с обеих строк
+    # Обрезаем ведущие нули
     dividend = dividend.lstrip('0')
     divisor = divisor.lstrip('0')
 
@@ -180,6 +180,35 @@ def divide_binary(dividend, divisor):
 
     # Убираем ведущие нули в частном и остатке
     return quotient.lstrip('0') or '0', binary_remainder
+
+def ieee754_to_float(ieee754):
+    # Получаем знак, экспоненту и мантиссу из строки
+    sign = (-1) ** int(ieee754[0])
+    exponent = int(ieee754[1:9], 2) - 127
+    mantissa = int('1' + ieee754[9:], 2)  # Добавляем неявную единицу
+
+    # Переводим мантиссу из двоичной в десятичную
+    mantissa_value = 0
+    for i in range(24):
+        bit = (mantissa >> (23 - i)) & 1
+        mantissa_value += bit * 2 ** (-i)
+
+    # Считаем значение числа
+    value = sign * mantissa_value * 2 ** exponent
+    return value
+
+def add_ieee754(num1, num2):
+    # Переводим числа из формата IEEE 754 в обычные вещественные числа
+    real_num1 = ieee754_to_float(num1)
+    real_num2 = ieee754_to_float(num2)
+
+    # Складываем числа как обычные вещественные числа
+    real_sum = real_num1 + real_num2
+
+    # Конвертируем результат обратно в формат IEEE 754
+    ieee754_sum = decimal_to_ieee754(real_sum)
+    return ieee754_sum
+
 def decimal_to_ieee754(number):
     # Проверка на ноль
     if number == 0.0:
@@ -201,7 +230,8 @@ def decimal_to_ieee754(number):
         exponent -= 1
 
     # Преобразование экспоненты в двоичную форму
-    exponent_binary = twos_complement(exponent)[1:]
+    exponent_binary = twos_complement(exponent)
+
 
     # Преобразование мантиссы в двоичную форму
     mantissa_binary = ''
@@ -213,64 +243,10 @@ def decimal_to_ieee754(number):
         if fraction >= 1.0:
             fraction -= 1.0
 
+    if len(exponent_binary) > 8:
+        exponent_binary = exponent_binary[1:]
+
     # Сборка битов в формате IEEE-754
     ieee754_binary = sign + exponent_binary + mantissa_binary
 
     return ieee754_binary
-def ieee754_addition(number1, number2):
-    # Проверка на входные строки
-    if len(number1) != 32 or len(number2) != 32:
-        raise ValueError("Неверный формат чисел в формате IEEE 754")
-
-    # Получение знаков чисел
-    sign1 = int(number1[0])
-    sign2 = int(number2[0])
-
-    # Получение экспонент и мантисс чисел
-    exponent1 = int(number1[1:9], 2)
-    exponent2 = int(number2[1:9], 2)
-    mantissa1 = "1" + number1[9:32]
-    mantissa2 = "1" + number2[9:32]
-
-    # Приведение мантисс к одной длине
-    while len(mantissa1) < len(mantissa2):
-        mantissa1 += "0"
-    while len(mantissa2) < len(mantissa1):
-        mantissa2 += "0"
-
-    # Вычисление новой экспоненты и сдвиг мантисс
-    new_exponent, diff = 0, 0
-    if exponent1 > exponent2:
-        diff = exponent1 - exponent2
-        new_exponent = exponent1
-        mantissa2 = "0" * diff + mantissa2
-    else:
-        diff = exponent2 - exponent1
-        new_exponent = exponent2
-        mantissa1 = "0" * diff + mantissa1
-
-    # Сложение мантисс
-    sum_mantissa = ""
-    carry = 0
-    for i in range(len(mantissa1) - 1, -1, -1):
-        bit_sum = int(mantissa1[i]) + int(mantissa2[i]) + carry
-        sum_mantissa = str(bit_sum % 2) + sum_mantissa
-        carry = bit_sum // 2
-
-    # Обработка переноса при сложении мантисс
-    if carry == 1:
-        sum_mantissa = "1" + sum_mantissa
-        new_exponent += 1
-
-    # Обработка ситуации, когда сумма мантисс превышает 1
-    if len(sum_mantissa) > 23:
-        sum_mantissa = sum_mantissa[1:24]
-        new_exponent += 1
-
-    # Приведение экспоненты к двоичному представлению
-    new_exponent = bin(new_exponent)[2:].zfill(8)
-
-    # Формирование результата
-    result = str(sign1) + new_exponent + sum_mantissa
-
-    return result
