@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Запросы на доступ{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Запросы на доступ</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Имя пользователя</th>
+            <th>Запрашиваемая зона</th>
+            <th>Статус</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for request in access_requests %}
+            <tr>
+                <td>{{ request.username }}</td>
+                <td>{{ request.requested_zone }}</td>
+                <td>{{ request.status }}</td>
+                <td>
+                    <form method="POST" style="display:inline;">
+                        <input type="hidden" name="username" value="{{ request.username }}">
+                        <input type="hidden" name="zone" value="{{ request.requested_zone }}">
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<button class="btn btn-secondary mt-3" onclick="window.location.href='/admin_menu'">Вернуться в меню администратора</button>
+{% endblock %}

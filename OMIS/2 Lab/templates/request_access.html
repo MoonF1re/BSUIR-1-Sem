@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Request Access{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Request Access</h1>
+<form method="POST">
+    <div class="form-group">
+        <label for="zone">Zone</label>
+        <input type="text" class="form-control" id="zone" name="zone" placeholder="Zone" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Request Access</button>
+</form>
+{% if message %}
+    <p class="mt-3">{{ message }}</p>
+{% endif %}
+<button class="btn btn-secondary mt-3" onclick="window.location.href='/employee_menu'">Back to Employee Menu</button>
+{% endblock %}

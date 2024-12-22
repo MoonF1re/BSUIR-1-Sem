@@ -1,0 +1,69 @@
+/* Стили для навигационной панели */
+.navbar {
+    width: 100%;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 1rem;
+}
+
+.navbar-nav .nav-link {
+    font-size: 1rem;
+}
+
+/* Стили для контейнера */
+.container {
+    max-width: 1200px;
+}
+
+/* Стили для карточек */
+.card {
+    margin-bottom: 1.5rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+/* Стили для формы */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-control {
+    font-size: 1rem;
+}
+
+/* Стили для таблицы */
+.table {
+    font-size: 1rem;
+}
+
+.table th, .table td {
+    padding: 0.75rem;
+    vertical-align: middle;
+}
+
+/* Стили для сообщений */
+.alert {
+    font-size: 1rem;
+}
+
+/* Стили для формы логина */
+.card-body {
+    padding: 2rem;
+}
+
+.card-title {
+    margin-bottom: 1.5rem;
+}

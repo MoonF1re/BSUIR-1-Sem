@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Меню администратора{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Меню администратора</h1>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Зарегистрировать пользователя</h5>
+                <button class="btn btn-primary btn-block" onclick="window.location.href='/admin/register_user'">Перейти к регистрации пользователя</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Просмотреть пользователей</h5>
+                <button class="btn btn-primary btn-block" onclick="window.location.href='/admin/view_users'">Перейти к просмотру пользователей</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Изменить доступ</h5>
+                <button class="btn btn-primary btn-block" onclick="window.location.href='/admin/edit_access'">Перейти к изменению доступа</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Запросы на доступ</h5>
+                <button class="btn btn-primary btn-block" onclick="window.location.href='/admin/access_requests'">Перейти к запросам на доступ</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Управление посетителями</h5>
+                <button class="btn btn-primary btn-block" onclick="window.location.href='/admin/visitors'">Перейти к управлению посетителями</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

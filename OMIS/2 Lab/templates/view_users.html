@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Просмотреть пользователей{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Просмотреть пользователей</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Имя пользователя</th>
+            <th>Роль</th>
+            <th>Доступные зоны</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.role }}</td>
+                <td>{{ user.access_zones|join(', ') }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<button class="btn btn-secondary mt-3" onclick="window.location.href='/admin_menu'">Вернуться в меню администратора</button>
+{% endblock %}

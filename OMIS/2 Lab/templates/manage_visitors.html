@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Управление посетителями{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Управление посетителями</h1>
+<form method="POST" class="mb-4">
+    <h2 class="mb-3">Зарегистрировать посетителя</h2>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="name">Имя</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Имя" required>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="visit_date">Дата визита</label>
+            <input type="text" class="form-control" id="visit_date" name="visit_date" placeholder="Дата визита" required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="visit_time">Время визита</label>
+            <input type="text" class="form-control" id="visit_time" name="visit_time" placeholder="Время визита" required>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="purpose">Цель визита</label>
+            <input type="text" class="form-control" id="purpose" name="purpose" placeholder="Цель визита" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="responsible_employee">Ответственный сотрудник</label>
+        <input type="text" class="form-control" id="responsible_employee" name="responsible_employee" placeholder="Ответственный сотрудник" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Зарегистрировать</button>
+</form>
+{% if message %}
+    <div class="alert alert-success mt-3" role="alert">
+        {{ message }}
+    </div>
+{% endif %}
+<h2 class="mt-4">Посетители</h2>
+<table class="table table-bordered table-responsive-md">
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Дата визита</th>
+            <th>Время визита</th>
+            <th>Цель визита</th>
+            <th>Ответственный сотрудник</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for visitor in visitors %}
+            <tr>
+                <td>{{ visitor.name }}</td>
+                <td>{{ visitor.visit_date }}</td>
+                <td>{{ visitor.visit_time }}</td>
+                <td>{{ visitor.purpose }}</td>
+                <td>{{ visitor.responsible_employee }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<button class="btn btn-secondary mt-3" onclick="window.location.href='/admin_menu'">Вернуться в меню администратора</button>
+{% endblock %}

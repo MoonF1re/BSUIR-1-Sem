@@ -1,0 +1,24 @@
+[
+    {
+        "username": "admin",
+        "password": "admin123",
+        "role": "admin",
+        "access_zones": []
+    },
+    {
+        "username": "Timofey",
+        "password": "1",
+        "role": "employee",
+        "access_zones": [
+            "3"
+        ]
+    },
+    {
+        "username": "Tima",
+        "password": "12",
+        "role": "employee",
+        "access_zones": [
+            "1, 5"
+        ]
+    }
+]
